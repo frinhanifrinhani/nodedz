@@ -1,0 +1,21 @@
+<h1>Courses</h1>
+<table>
+    <thead>
+        <th>Titulo</th>
+        <th>Categoria</th>
+        <th>Professor</th>
+        <th>Classificação</th>
+        <th>Ver curso</th>
+    </thead>
+    <tbody>
+        {{#each courses}}
+        {{> courses-list}}
+        {{/each}}
+    </tbody>
+</table>
+
+<p>
+    <a href="/" class="btn info">Voltar</a>
+</p>
+
+
