@@ -33,7 +33,6 @@ module.exports = class AuthController{
             return
         }
         
-
         // create a password
         const salt = bcrypt.genSaltSync(10)
         const hashedPassword = bcrypt.hashSync(password,salt)
@@ -61,9 +60,11 @@ module.exports = class AuthController{
             
             console.log(error)
         }
-
-
     }
 
+    static logout(req,res){
+        req.session.destroy()
+        res.redirect('/login')
+    }
     
 }
