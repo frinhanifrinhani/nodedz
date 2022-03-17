@@ -51,8 +51,6 @@ module.exports = class ProductController{
 
         const product = await Product.getProductbyId(id)
 
-        console.log(product)
-
         res.render('products/edit',{product})
 
     }
