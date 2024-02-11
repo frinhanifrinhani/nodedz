@@ -1,34 +1,34 @@
 const Product = require('../models/Product')
 
-module.exports = class ProductController{
+module.exports = class ProductController {
 
-    static async showproducts(req,res) {
+    static async showproducts(req, res) {
 
         const products = await Product.getProducts()
-        
-        res.render('products/all',{ products })
+
+        res.render('products/all', { products })
     }
 
-    static createProduct(req,res){
+    static createProduct(req, res) {
         res.render('products/create')
     }
 
-    static async createProductPost(req,res){
+    static async createProductPost(req, res) {
 
         const name = req.body.name
         const image = req.body.image
         const price = req.body.price
-        const description = req.body.description 
+        const description = req.body.description
 
-        const product = new Product(name,image,price,description)
+        const product = await new Product(name, image, price, description)
 
         product.save()
-        
+
         res.redirect('/products')
 
     }
 
-    static async getProduct(req,res){
+    static async getProduct(req, res) {
 
         const id = req.params.id
         const product = await Product.getProductbyId(id)
@@ -36,8 +36,8 @@ module.exports = class ProductController{
         res.render('products/product', { product })
     }
 
-    static async removeProduct(req,res){
-        
+    static async removeProduct(req, res) {
+
         const id = req.params.id
 
         await Product.removeProductById(id)
@@ -45,17 +45,17 @@ module.exports = class ProductController{
         res.redirect('/products')
     }
 
-    static async editProduct(req,res){
+    static async editProduct(req, res) {
 
         const id = req.params.id
 
         const product = await Product.getProductbyId(id)
 
-        res.render('products/edit',{product})
+        res.render('products/edit', { product })
 
     }
 
-    static async editProductPost(req,res){
+    static async editProductPost(req, res) {
 
         const id = req.body.id
         const name = req.body.name
@@ -63,7 +63,7 @@ module.exports = class ProductController{
         const price = req.body.price
         const description = req.body.description
 
-        const product = new Product(name,image,price,description)
+        const product = new Product(name, image, price, description)
 
         await product.updateProduct(id)
 
