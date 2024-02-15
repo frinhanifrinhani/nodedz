@@ -63,4 +63,34 @@ module.exports = class UserController {
         }
 
     }
+
+    static async login(req, res) {
+        const { email, password } = req.body
+
+        if (!email) {
+            res.status(422).json({ message: 'O campo email precisa ser preenchido!' })
+            return
+        }
+
+        if (!password) {
+            res.status(422).json({ message: 'O campo senha precisa ser preenchido!' })
+            return
+        }
+
+        const user = await User.findOne({ email: email })
+
+        if (!user) {
+            res.status(404).json({ message: 'Usuário não encontrado!' })
+            return
+        }
+
+        const checkPassword = await bcrypt.compare(password, user.password)
+
+        if (!checkPassword) {
+            res.status(401).json({ message: 'A senha está incorreta. Por favor, verifique suas credenciais e tente novamente.' })
+            return
+        }
+
+        await createUserToken(user, req, res);
+    }
 }
