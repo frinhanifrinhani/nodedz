@@ -1,6 +1,8 @@
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
 
+const env = require('./../env')
+
 //helpers
 const createUserToken = require('../helpers/create-user-token')
 const getToken = require('../helpers/get-token')
@@ -103,7 +105,7 @@ module.exports = class UserController {
 
         if (req.headers.authorization) {
             const token = getToken(req)
-            const decoded = jwt.verify(token, '0G0uxU9NRA+wA&7')
+            const decoded = jwt.verify(token, env.jwtsecret)
 
             currentUser = await User.findById(decoded.id)
             currentUser.password = undefined

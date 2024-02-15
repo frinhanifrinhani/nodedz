@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-
+const env = require('./../env')
 const createUserToken = async (user, req, res) => {
 
     // create token
@@ -8,7 +8,7 @@ const createUserToken = async (user, req, res) => {
             name: user.name,
             id: user.id,
         },
-        '0G0uxU9NRA+wA&7' // secret 
+        env.jwtsecret // secret 
     )
 
     // return token
