@@ -1,7 +1,7 @@
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
 
-const env = require('./../env')
+const jwtsecret = require('./../env').jwtsecret
 
 //helpers
 const createUserToken = require('../helpers/create-user-token')
@@ -105,7 +105,7 @@ module.exports = class UserController {
 
         if (req.headers.authorization) {
             const token = getToken(req)
-            const decoded = jwt.verify(token, env.jwtsecret)
+            const decoded = jwt.verify(token, jwtsecret)
 
             currentUser = await User.findById(decoded.id)
             currentUser.password = undefined
@@ -128,6 +128,12 @@ module.exports = class UserController {
         }
 
         res.status(200).json({ user })
+
+    }
+
+    static editUser(req, res) {
+
+        res.status(200).json({ message: 'Deu certo' })
 
     }
 }
