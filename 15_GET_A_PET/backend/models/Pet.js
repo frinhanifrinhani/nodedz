@@ -1,7 +1,7 @@
 const mongoose = require('../db/conn')
 const { Schema } = mongoose
 
-const Pet = mongoose.Schema(
+const Pet = mongoose.model(
     'Pet',
     new Schema(
         {
@@ -30,7 +30,7 @@ const Pet = mongoose.Schema(
                 required: true
             },
             user: Object,
-            adopter: Obeject,
+            adapter: Object,
         },
         { timestamps: true }
     )
