@@ -2,7 +2,6 @@ const Pet = require('../models/Pet')
 const getToken = require('../helpers/get-token')
 const getUserByToken = require('../helpers/get-user-by-token')
 const ObjectId = require('mongoose')
-
 module.exports = class PetController {
 
     static async create(req, res) {
@@ -218,6 +217,50 @@ module.exports = class PetController {
         await Pet.findByIdAndUpdate(id, updateData)
 
         res.status(200).json({ message: 'Pet atualizado com sucesso' })
+
+    }
+
+    static async schedule(req, res) {
+        const id = req.params.id
+
+        if (!ObjectId.isValidObjectId(id)) {
+            res.status(422).json({ message: 'ID inválido' })
+            return
+        }
+
+        const pet = await Pet.findOne({ _id: id })
+
+        if (!pet) {
+            res.status(404).json({ message: 'Pet não encontrado!' })
+            return
+        }
+
+        // check if user registered the pet
+        const token = getToken(req)
+        const user = await getUserByToken(token)
+
+        if (pet.user._id.equals(user._id)) {
+            res.status(422).json({ message: 'Você não pode agendar uma visita para seu próprio pet' })
+            return
+        }
+
+        if (pet.adopter) {
+            if (pet.adopter._id.equals(user._id)) {
+                res.status(422).json({ message: 'Você já agendou uma visita para este pet' })
+                return
+            }
+        }
+
+        // add user to pet
+        pet.adopter = {
+            _id: user._id,
+            name: user.name,
+            image: user.image
+        }
+
+        await Pet.findByIdAndUpdate(id, pet)
+
+        res.status(200).json({ message: `A visita foi agendada com sucesso, entre em contato com ${pet.user.name} pelo telefone ${pet.user.phone} ` })
 
     }
 }
