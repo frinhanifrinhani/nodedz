@@ -1,17 +1,30 @@
+import { useContext, useState } from 'react'
+
 import Input from '../../form/Input'
 import { Link } from 'react-router-dom'
 
 import styles from '../../form/Form.module.css'
 
-function Register() {
-    function handleChange(e) {
+import { Context } from '../../../context/UserContext'
 
+function Register() {
+
+    const [user, setUser] = useState({})
+    const { register } = useContext(Context)
+
+    function handleChange(e) {
+        setUser({ ...user, [e.target.name]: e.target.value })
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault()
+        register(user)
     }
 
     return (
         <section className={styles.form_container}>
             <h1>Register</h1>
-            <form >
+            <form onSubmit={handleSubmit}>
                 <Input
                     text='Nome'
                     type='text'
@@ -43,7 +56,7 @@ function Register() {
                 <Input
                     text='Senha'
                     type='password'
-                    name='password'
+                    name='confirmpassword'
                     placeholder='Confirmar sua senha'
                     handleOnChange={handleChange}
                 />
