@@ -25,6 +25,9 @@ function Navbar() {
                 {authenticated ? (
                     <>
                         <li >
+                            <NavLink to="/pet/mypets">Meus Pets</NavLink>
+                        </li>
+                        <li >
                             <NavLink to="/user/profile">Perfil</NavLink>
                         </li>
                         <li onClick={logout}>Sair</li>
