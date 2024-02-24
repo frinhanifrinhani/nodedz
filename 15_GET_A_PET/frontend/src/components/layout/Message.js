@@ -15,9 +15,9 @@ function Message() {
             setMessage(message)
             setType(type)
 
-            //setTimeout(() => {
-            //    setVisibility(false)
-            //}, 3000)
+            setTimeout(() => {
+                setVisibility(false)
+            }, 3000)
         })
     }, [])
 

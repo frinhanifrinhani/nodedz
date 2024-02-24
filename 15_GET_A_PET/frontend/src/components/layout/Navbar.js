@@ -4,7 +4,13 @@ import styles from './Navbar.module.css'
 
 import Logo from '../../assets/img/logo.png'
 
+import { Context } from '../../context/UserContext'
+import { useContext } from "react"
+
 function Navbar() {
+
+    const { authenticated } = useContext(Context)
+
     return (
         <nav className={styles.navbar}>
             <div className={styles.navbar_logo}>
@@ -15,12 +21,21 @@ function Navbar() {
                 <li>
                     <NavLink to="/">Adotar</NavLink>
                 </li>
-                <li>
-                    <NavLink to="/login">Entrar</NavLink>
-                </li>
-                <li>
-                    <NavLink to="/register">Cadastrar</NavLink>
-                </li>
+
+                {authenticated ? (
+                    <>
+                        <p>Logado</p>
+                    </>
+                ) : (
+                    <>
+                        <li>
+                            <NavLink to="/login">Entrar</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/register">Cadastrar</NavLink>
+                        </li></>
+                )}
+
             </ul>
         </nav>
     )
