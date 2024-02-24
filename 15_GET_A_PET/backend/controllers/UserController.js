@@ -174,16 +174,19 @@ module.exports = class UserController {
 
         user.phone = phone
 
-        if (password !== confirmpassword) {
-            res.status(422).json({ message: 'A senha e a confirmação de senha precisam ser identicos!' })
-            return
-        } else if (password === confirmpassword && password !== null) {
-            // password encrypt
-            const salt = await bcrypt.genSalt(12)
-            const passwordHash = await bcrypt.hash(password, salt)
+        if (password || confirmpassword) {
+            if (password !== confirmpassword) {
+                res.status(422).json({ message: 'A senha e a confirmação de senha precisam ser identicos!' })
+                return
+            } else if (password === confirmpassword && password !== null) {
+                // password encrypt
+                const salt = await bcrypt.genSalt(12)
+                const passwordHash = await bcrypt.hash(password, salt)
 
-            user.password = passwordHash
+                user.password = passwordHash
+            }
         }
+
 
         try {
             const updateUser = await User.findOneAndUpdate(
