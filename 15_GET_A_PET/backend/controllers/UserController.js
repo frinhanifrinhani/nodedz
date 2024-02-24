@@ -21,23 +21,23 @@ module.exports = class UserController {
             return
         }
 
-        if (!email) {
-            res.status(422).json({ message: 'O campo email precisa ser preenchido!' })
+        if (!phone) {
+            res.status(422).json({ message: 'O campo telefone precisa ser preenchido!' })
             return
         }
 
-        if (!phone) {
-            res.status(422).json({ message: 'O campo phone precisa ser preenchido!' })
+        if (!email) {
+            res.status(422).json({ message: 'O campo e-mail precisa ser preenchido!' })
             return
         }
 
         if (!password) {
-            res.status(422).json({ message: 'O campo password precisa ser preenchido!' })
+            res.status(422).json({ message: 'O campo senha precisa ser preenchido!' })
             return
         }
 
         if (!confirmpassword) {
-            res.status(422).json({ message: 'O campo confirmpassword precisa ser preenchido!' })
+            res.status(422).json({ message: 'O campo confirmação da senha precisa ser preenchido!' })
             return
         }
 
