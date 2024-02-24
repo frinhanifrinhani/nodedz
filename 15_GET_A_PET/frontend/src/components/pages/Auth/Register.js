@@ -43,7 +43,7 @@ function Register() {
                     text='E-mail'
                     type='email'
                     name='email'
-                    placeholder='Digite seu emial'
+                    placeholder='Digite seu email'
                     handleOnChange={handleChange}
                 />
                 <Input
@@ -54,7 +54,7 @@ function Register() {
                     handleOnChange={handleChange}
                 />
                 <Input
-                    text='Senha'
+                    text='Confirmação de Senha'
                     type='password'
                     name='confirmpassword'
                     placeholder='Confirmar sua senha'

@@ -8,6 +8,7 @@ import {
 import Navbar from './components/layout/Navbar'
 import Container from './components/layout/Container'
 import Footer from './components/layout/Footer'
+import Message from './components/layout/Message'
 
 import Home from './components/pages/Home'
 import Register from './components/pages/Auth/Register'
@@ -20,6 +21,7 @@ function App() {
     <Router>
       <UserProvider>
         <Navbar />
+        <Message />
         <Container>
           <Routes>
             <Route path='/' element={<Home />} />
