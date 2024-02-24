@@ -8,12 +8,47 @@ function PetForm({ handleSubmit, petData, btnText }) {
     const [preview, setPreview] = useState([])
     const colors = ['Branco', 'Preto', 'Cinza', 'Caramelo', 'Mesclado']
 
-    function onFileChange(e) { }
-    function hanleChange(e) { }
-    function handleColor(e) { }
+    function onFileChange(e) {
+        setPreview(Array.from(e.target.files))
+        setPet({ ...pet, images: [...e.target.files] })
+    }
+
+    function hanleChange(e) {
+        setPet({ ...pet, [e.target.name]: e.target.value })
+    }
+
+    function handleColor(e) {
+        setPet({ ...pet, color: e.target.options[e.target.selectedIndex].text })
+    }
+
+    function submit(e) {
+        e.preventDefault()
+        console.log(pet)
+        //handleSubmit(pet)
+    }
 
     return (
-        <form className={formStyles.form_container}>
+
+        < form onSubmit={submit} className={formStyles.form_container} >
+            <div className={formStyles.preview_pet_images}>
+                {preview.length > 0
+                    ? preview.map((image, index) => (
+                        <img
+                            src={URL.createObjectURL(image)}
+                            alt={pet.name}
+                            key={`${pet.name}+${index}`}
+                        />
+                    ))
+                    : pet.images &&
+                    pet.images.map((image, index) => (
+                        <img
+                            src={`${process.env.REACT_APP_API}images/pets/${image}`}
+                            alt={pet.name}
+                            key={`${pet.name}+${index}`}
+                        />
+                    ))
+                }
+            </div>
             <Input
                 text="Imagens"
                 type="file"
@@ -55,7 +90,7 @@ function PetForm({ handleSubmit, petData, btnText }) {
             />
 
             <input type="submit" value={btnText} />
-        </form>
+        </form >
     )
 }
 
