@@ -25,7 +25,7 @@ function MyPets() {
 
         const data = await api.delete(`/pets/${id}`)
             .then((response) => {
-                const updatedPets = pets.filter((pet) => pet._id != id)
+                const updatedPets = pets.filter((pet) => pet._id !== id)
                 setPets(updatedPets)
                 return response.data
             })
