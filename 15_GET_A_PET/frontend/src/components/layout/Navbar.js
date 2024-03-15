@@ -25,6 +25,9 @@ function Navbar() {
                 {authenticated ? (
                     <>
                         <li >
+                            <NavLink to="/pet/myadoptions">Minhas adoções</NavLink>
+                        </li>
+                        <li >
                             <NavLink to="/pet/mypets">Meus Pets</NavLink>
                         </li>
                         <li >
